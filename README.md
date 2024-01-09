@@ -100,7 +100,7 @@ Here's an example response:
 }
 ```
 
-[Try it in the explorer](https://perceptive.care/graphql/#query=%23%20Don't%20forget%20the%20Authorization%20header%0A%0Amutation%20SetUpEncounter(%24input%3ACreateEncounterExternalInput!)%20%7B%0A%20%20createEncounterExternal(input%3A%20%24input)%20%7B%0A%20%20%20%20encounterId%0A%20%20%20%20errors%20%7B%0A%20%20%20%20%20%20field%0A%20%20%20%20%20%20messages%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D&operationName=SetUpEncounter&variables=%7B%0A%20%20%22input%22%3A%20%7B%0A%20%20%20%20%22newPatient%22%3A%20%7B%0A%20%20%20%20%20%20%22name%22%3A%20%22Alicia%20Smith%22%2C%0A%20%20%20%20%20%20%22birthDate%22%3A%20%221998-01-05%22%2C%0A%20%20%20%20%20%20%22gender%22%3A%20%22FEMALE%22%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D)
+[Try it in the explorer](https://perceptive.care/graphql/#query=%23%20Don't%20forget%20the%20Authorization%20header%0A%0Amutation%20CreateEncounter(%24input%3A%20CreateEncounterInput!)%20%7B%0A%20%20createEncounter(input%3A%20%24input)%20%7B%0A%20%20%20%20encounter%20%7B%0A%20%20%20%20%20%20id%0A%20%20%20%20%7D%0A%20%20%20%20errors%20%7B%0A%20%20%20%20%20%20field%0A%20%20%20%20%20%20messages%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0A&operationName=CreateEncounter&variables=%7B%0A%20%20%22input%22%3A%20%7B%0A%20%20%20%20%22newPatient%22%3A%20%7B%0A%20%20%20%20%20%20%22name%22%3A%20%22Alicia%20Smith%22%2C%0A%20%20%20%20%20%20%22birthDate%22%3A%20%221998-01-05%22%2C%0A%20%20%20%20%20%20%22gender%22%3A%20%22FEMALE%22%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D)
 
 
 ### Continue encounter
@@ -126,7 +126,9 @@ mutation ContinueEncounter($input: ContinueEncounterInput!) {
 #   "input": {
 #     "encounter": "<your encounter id here>",
 #     "messages": [
-#       {"role": "USER", "content": "hello, I have a headache, can you help?"}
+#       {"role": "USER", "content": "hello, I have a headache, can you help?"},
+#       {"role": "ASSISTANT", "content": "Hello Alicia, I'm Sam, tell me about your headache please."},
+#       {"role": "USER", "content": "I started feeling a sharp pain in my head a few days ago"}
 #     ]
 #   }
 # }
@@ -137,13 +139,16 @@ Example response:
 {
   "data": {
     "continueEncounterExternal": {
-      "suggestedMessage": "Hi, I'm a clinical assistant here to help gather information for Dr. Cici Wei. Could you tell me in your own words what's been going on with your headaches?",
+      "suggestedMessage": "Hi, I'm a clinical assistant here to help gather information for Dr. Johnson. Could you tell me in your own words what's been going on with your headaches?",
+      "encounter": {
+        "chatFinished": false
+      },
       "errors": []
     }
   }
 }
 ```
 
-[Try it in the explorer](https://perceptive.care/graphql/#query=%23%20Don't%20forget%20the%20Authorization%20header%0A%0Amutation%20ContinueEncounter(%24input%3A%20ContinueEncounterExternalInput!)%20%7B%0A%20%20continueEncounterExternal(input%3A%20%24input)%20%7B%0A%20%20%20%20suggestedMessage%0A%20%20%20%20errors%20%7B%0A%20%20%20%20%20%20field%0A%20%20%20%20%20%20messages%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D&operationName=ContinueEncounter&variables=%7B%0A%20%20%22input%22%3A%20%7B%0A%20%20%20%20%22encounter%22%3A%20%22%3Cyour%20encounter%20id%20here%3E%22%2C%0A%20%20%20%20%22messages%22%3A%20%5B%0A%20%20%20%20%20%20%7B%22role%22%3A%20%22USER%22%2C%20%22content%22%3A%20%22hello%2C%20I%20have%20a%20headache%2C%20can%20you%20help%3F%22%7D%0A%20%20%20%20%5D%0A%20%20%7D%0A%7D)
+[Try it in the explorer](https://perceptive.care/graphql/#query=%23%20Don't%20forget%20the%20Authorization%20header%0A%0Amutation%20ContinueEncounter(%24input%3A%20ContinueEncounterInput!)%20%7B%0A%20%20continueEncounter(input%3A%20%24input)%20%7B%0A%20%20%20%20suggestedMessage%0A%20%20%20%20encounter%20%7B%0A%20%20%20%20%20%20chatFinished%0A%20%20%20%20%7D%0A%20%20%20%20errors%20%7B%0A%20%20%20%20%20%20field%0A%20%20%20%20%20%20messages%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0A%0A&operationName=ContinueEncounter&variables=%7B%0A%20%20%22input%22%3A%20%7B%0A%20%20%20%20%22encounter%22%3A%20%22%3Cyour%20encounter%20id%20here%3E%22%2C%0A%20%20%20%20%22messages%22%3A%20%5B%0A%20%20%20%20%20%20%7B%22role%22%3A%20%22USER%22%2C%20%22content%22%3A%20%22hello%2C%20I%20have%20a%20headache%2C%20can%20you%20help%3F%22%7D%0A%20%20%20%20%5D%0A%20%20%7D%0A%7D)
 
 
