@@ -1,4 +1,4 @@
-## Perceptive API
+# Perceptive API
 
 All interaction with our service is based on a [GraphQL](https://graphql.org/) API. GraphQL is a widely adopted moredn technology - for example [GitHub has a GraphQL API](https://docs.github.com/en/graphql/overview/explorer). Our own API is available at [https://perceptive.app/graphql/](https://perceptive.app/graphql/).
 
@@ -16,7 +16,7 @@ The public API is designed to enable two possible workflows:
 2. Autonomous assistant
 
 
-#### Human in the loop (suggestions)
+### Human in the loop (suggestions)
 
 In this scenario, we're providing suggestions to a human agent, who can then choose to send them to the patient, edit them, or send something entirely different.
 
@@ -30,7 +30,7 @@ To implement this, you'll need to:
 4. Repeat from step 2, until `continueEncounter` returns `encounter.chatFinished` flag.
 
 
-#### Autonomous assistant
+### Autonomous assistant
 
 In this scenario, the bot is fully autonomous, and can send messages to the patient without human intervention.
 
@@ -43,20 +43,20 @@ This workflow uses the same APIs but in a simpler way:
 3. Immediately send the suggestion to the patient and wait for the patient's response
 4. Repeat from step 2, until `continueEncounter` returns `encounter.chatFinished` flag.
 
-#### Caveats
+### Caveats
 
 * If the discussion with the patient continues in the same thread for multiple separated encounters, the API user is responsible for separating them.
 * Streaming message suggestions is currently not supported.
 * The end of the encounter is not indicated in the API right now.
 
 
-### API Examples
+## API Examples
 
 Here are a few examples of how to use the API to ember our assistant into your chat platform.
 
 It's not a comprehensive description of the API, if you want a complete description of all the available mutations and fields, that can be found in the [API explorer](https://perceptive.care/graphql/).
 
-#### Create encounter
+### Create encounter
 
 Here's where we set the context of the conversation for the bot - who the patient is, what to discuss, etc.
 
