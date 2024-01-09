@@ -77,15 +77,15 @@ mutation CreateEncounter($input: CreateEncounterInput!) {
 }
 
 # Variables:
-# {
-#   "input": {
-#     "newPatient": {
-#       "name": "Alicia Smith",
-#       "birthDate": "1998-01-05",
-#       "gender": "FEMALE"
-#     }
-#   }
-# }
+{
+  "input": {
+    "newPatient": {
+      "name": "Alicia Smith",
+      "birthDate": "1998-01-05",
+      "gender": "FEMALE"
+    }
+  }
+}
 ```
 
 Here's an example response:
@@ -124,16 +124,16 @@ mutation ContinueEncounter($input: ContinueEncounterInput!) {
 }
 
 # Variables:
-# {
-#   "input": {
-#     "encounter": "<your encounter id here>",
-#     "messages": [
-#       {"role": "USER", "content": "hello, I have a headache, can you help?"},
-#       {"role": "ASSISTANT", "content": "Hello Alicia, I'm Sam, tell me about your headache please."},
-#       {"role": "USER", "content": "I started feeling a sharp pain in my head a few days ago"}
-#     ]
-#   }
-# }
+{
+  "input": {
+    "encounter": "<your encounter id here>",
+    "messages": [
+      {"role": "USER", "content": "hello, I have a headache, can you help?"},
+      {"role": "ASSISTANT", "content": "Hello Alicia, I'm Sam, tell me about your headache please."},
+      {"role": "USER", "content": "I started feeling a sharp pain in my head a few days ago"}
+    ]
+  }
+}
 ```
 
 Example response:
@@ -172,9 +172,9 @@ query EncounterSummary($encounterId: ID!) {
 }
 
 # Variables:
-# {
-#   "encounterId": "<your encounter id here>"
-# }
+{
+  "encounterId": "<your encounter id here>"
+}
 ```
 
 Example response:
