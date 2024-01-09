@@ -1,6 +1,6 @@
 # Perceptive API
 
-All interaction with our service is based on a [GraphQL](https://graphql.org/) API. GraphQL is a widely adopted moredn technology - for example [GitHub has a GraphQL API](https://docs.github.com/en/graphql/overview/explorer). Our own API is available at [https://perceptive.app/graphql/](https://perceptive.app/graphql/).
+All interaction with our service is based on a [GraphQL](https://graphql.org/) API. GraphQL is a widely adopted moredn technology - for example [GitHub has a GraphQL API](https://docs.github.com/en/graphql/overview/explorer). Our own API is available at [https://perceptive.care/graphql/](https://perceptive.care/graphql/).
 
 There you can find a GUI explorer (the exact same one used by GitHub). **Important** - to make a request, you have to specify your token in the "HEADERS" section of the explorer:
 
