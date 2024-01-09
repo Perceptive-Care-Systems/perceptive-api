@@ -28,6 +28,7 @@ To implement this, you'll need to:
    * Note that you need to provide the entire conversation history every time you call this API, not just the new messages.
 3. Show the suggestion to the human agent, allow them to send whatever they end up sending, and wait for the patient's response
 4. Repeat from step 2, until `continueEncounter` returns `encounter.chatFinished` flag.
+5. [Poll the encounter](#get-encounter-summary) until status equals `REPORT_GENERATED`, and get the summary
 
 
 ### Autonomous assistant
@@ -42,6 +43,7 @@ This workflow uses the same APIs but in a simpler way:
    * Note that you need to provide the entire conversation history every time you call this API, not just the new messages.
 3. Immediately send the suggestion to the patient and wait for the patient's response
 4. Repeat from step 2, until `continueEncounter` returns `encounter.chatFinished` flag.
+5. [Poll the encounter](#get-encounter-summary) until status equals `REPORT_GENERATED`, and get the summary
 
 ### Caveats
 
@@ -144,6 +146,47 @@ Example response:
         "chatFinished": false
       },
       "errors": []
+    }
+  }
+}
+```
+
+[Try it in the explorer](https://perceptive.care/graphql/#query=%23%20Don't%20forget%20the%20Authorization%20header%0A%0Amutation%20ContinueEncounter(%24input%3A%20ContinueEncounterInput!)%20%7B%0A%20%20continueEncounter(input%3A%20%24input)%20%7B%0A%20%20%20%20suggestedMessage%0A%20%20%20%20encounter%20%7B%0A%20%20%20%20%20%20chatFinished%0A%20%20%20%20%7D%0A%20%20%20%20errors%20%7B%0A%20%20%20%20%20%20field%0A%20%20%20%20%20%20messages%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0A%0A&operationName=ContinueEncounter&variables=%7B%0A%20%20%22input%22%3A%20%7B%0A%20%20%20%20%22encounter%22%3A%20%22%3Cyour%20encounter%20id%20here%3E%22%2C%0A%20%20%20%20%22messages%22%3A%20%5B%0A%20%20%20%20%20%20%7B%22role%22%3A%20%22USER%22%2C%20%22content%22%3A%20%22hello%2C%20I%20have%20a%20headache%2C%20can%20you%20help%3F%22%7D%0A%20%20%20%20%5D%0A%20%20%7D%0A%7D)
+
+
+### Get encounter summary
+
+Get a text summary or a PDF summary after the encounter has ended.
+
+```graphql
+query EncounterSummary($encounterId: ID!) {
+  node(id: $encounterId) {
+    ... on EncounterType {
+      status
+      outcome {
+        summaryText
+        summaryDownloadUrl
+      }
+    }
+  }
+}
+
+# Variables:
+# {
+#   "encounterId": "<your encounter id here>"
+# }
+```
+
+Example response:
+```json
+{
+  "data": {
+    "node": {
+      "status": "REPORT_GENERATED",
+      "outcome": {
+        "summaryText": "- Patient Details: Sam Smith, 25 years old, male\n- The patient is currently not taking any medications or supplements.\n- The patient has a known allergy to fish, resulting in hives and difficulty breathing upon exposure. He reports no other known allergies, including to latex.\n- The patient presents with a headache, described as sharp, over the last 2-3 days. The pain intensity is rated as 7 on a scale of 1 to 10 and is primarily localized at the back of his head.\n- The patient has taken aspirin for the headache without relief. No concurrent symptoms such as nausea, vomiting, dizziness, vertigo, light or sound sensitivity, or blurry vision have been reported.\n- The patient does not experience auras or prodrome symptoms associated with the headache.\n- There is a documented family history of migraines, with the patient's mother being a known migraine sufferer.",
+        "summaryDownloadUrl": "/encounters/con_jevoUhC5gfq4C4kh/report-pdf/"
+      }
     }
   }
 }
