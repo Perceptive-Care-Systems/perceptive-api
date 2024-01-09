@@ -54,9 +54,9 @@ This workflow uses the same APIs but in a simpler way:
 
 ## API Examples
 
-Here are a few examples of how to use the API to ember our assistant into your chat platform.
+Here are a few examples of how to use the API to embed our assistant into your chat platform.
 
-It's not a comprehensive description of the API, if you want a complete description of all the available mutations and fields, that can be found in the [API explorer](https://perceptive.care/graphql/).
+It's not a comprehensive description of the API, if you want an API reference, that can be found in the [API explorer](https://perceptive.care/graphql/).
 
 ### Create encounter
 
