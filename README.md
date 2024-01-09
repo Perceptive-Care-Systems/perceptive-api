@@ -192,6 +192,12 @@ Example response:
 }
 ```
 
+Possible values for `status` are:
+* `SCHEDULED` - the encounter is scheduled for the future, the summary is not available yet
+* `IN_PROGRESS` - the encounter is still ongoing, the summary is not available yet
+* `INFORMATION_GATHERED` - the encounter is finished, the summary is not available yet
+* `REPORT_GENERATED` - the encounter is finished, the summary is available
+
 [Try it in the explorer](https://perceptive.care/graphql/#query=%23%20Don't%20forget%20the%20Authorization%20header%0A%0Aquery%20EncounterSummary(%24encounterId%3A%20ID!)%20%7B%0A%20%20node(id%3A%20%24encounterId)%20%7B%0A%20%20%20%20...%20on%20EncounterType%20%7B%0A%20%20%20%20%20%20status%0A%20%20%20%20%20%20outcome%20%7B%0A%20%20%20%20%20%20%20%20summaryText%0A%20%20%20%20%20%20%20%20summaryDownloadUrl%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D&operationName=EncounterSummary&variables=%7B%0A%20%20%22encounterId%22%3A%20%22%3Cyour%20encounter%20id%20here%3E%22%0A%7D)
 
 
