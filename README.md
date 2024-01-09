@@ -192,6 +192,6 @@ Example response:
 }
 ```
 
-[Try it in the explorer](https://perceptive.care/graphql/#query=%23%20Don't%20forget%20the%20Authorization%20header%0A%0Amutation%20ContinueEncounter(%24input%3A%20ContinueEncounterInput!)%20%7B%0A%20%20continueEncounter(input%3A%20%24input)%20%7B%0A%20%20%20%20suggestedMessage%0A%20%20%20%20encounter%20%7B%0A%20%20%20%20%20%20chatFinished%0A%20%20%20%20%7D%0A%20%20%20%20errors%20%7B%0A%20%20%20%20%20%20field%0A%20%20%20%20%20%20messages%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0A%0A&operationName=ContinueEncounter&variables=%7B%0A%20%20%22input%22%3A%20%7B%0A%20%20%20%20%22encounter%22%3A%20%22%3Cyour%20encounter%20id%20here%3E%22%2C%0A%20%20%20%20%22messages%22%3A%20%5B%0A%20%20%20%20%20%20%7B%22role%22%3A%20%22USER%22%2C%20%22content%22%3A%20%22hello%2C%20I%20have%20a%20headache%2C%20can%20you%20help%3F%22%7D%0A%20%20%20%20%5D%0A%20%20%7D%0A%7D)
+[Try it in the explorer](https://perceptive.care/graphql/#query=%23%20Don't%20forget%20the%20Authorization%20header%0A%0Aquery%20EncounterSummary(%24encounterId%3A%20ID!)%20%7B%0A%20%20node(id%3A%20%24encounterId)%20%7B%0A%20%20%20%20...%20on%20EncounterType%20%7B%0A%20%20%20%20%20%20status%0A%20%20%20%20%20%20outcome%20%7B%0A%20%20%20%20%20%20%20%20summaryText%0A%20%20%20%20%20%20%20%20summaryDownloadUrl%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D&operationName=EncounterSummary&variables=%7B%0A%20%20%22encounterId%22%3A%20%22%3Cyour%20encounter%20id%20here%3E%22%0A%7D)
 
 
